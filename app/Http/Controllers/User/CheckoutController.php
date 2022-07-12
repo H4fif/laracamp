@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Camp;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
+use App\Http\Requests\User\Checkout\Store;
 use Auth;
 
 class CheckoutController extends Controller
@@ -41,7 +42,7 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Camp $camp)
+    public function store(Store $request, Camp $camp)
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();
