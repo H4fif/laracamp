@@ -25,7 +25,7 @@
                                 </td>
                                 <td>
                                     <p class="mb-2">
-                                        <strong>{{ $checkout->title }}</strong>
+                                        <strong>{{ $checkout->camp->title }}</strong>
                                     </p>
                                     <p>
                                         {{ $checkout->created_at->format('F d, Y') }}
