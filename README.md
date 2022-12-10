@@ -19,4 +19,17 @@ git clone git@github.com:H4fif/laracamp.git
 - replace google for oauth configurations with prefix `GOOGLE_CLIENT_`
 
 ## GENERATE APP KEY
-- type `php artisan key:generate` and hit `enter`
+- run this command
+```markdown
+php artisan key:generate
+```
+
+
+## START THE WEB
+- run this command
+```markdown
+php artisan serve
+```
+
+# NOTE
+- to enable mail functionality replace the `MAIL_` configurations in the `.env` file to match yours
