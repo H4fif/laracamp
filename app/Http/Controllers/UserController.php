@@ -6,6 +6,10 @@ use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Mail;
+use App\Mail\User\AfterRegister;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -21,18 +25,32 @@ class UserController extends Controller
 
     public function handleProviderCallback()
     {
-        $callback = Socialite::driver('google')->stateless()->user();
+        try {
+            DB::beginTransaction();
 
-        $data = [
-            'name' => $callback->getName(),
-            'email' => $callback->getEmail(),
-            'avatar' => $callback->getAvatar(),
-            'email_verified_at' => date('Y-m-d H:i:s', time()),
-        ];
+            $callback = Socialite::driver('google')->stateless()->user();
 
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
-        Auth::login($user, true);
+            $data = [
+                'name' => $callback->getName(),
+                'email' => $callback->getEmail(),
+                'avatar' => $callback->getAvatar(),
+                'email_verified_at' => date('Y-m-d H:i:s', time()),
+            ];
 
-        return redirect()->route('welcome');
+            $user = User::where(['email' => $data['email']])->first();
+
+            if (empty($user)) {
+                $user = User::create($data);
+                Mail::to($user->email)->send(new AfterRegister($user));
+            }
+
+            Auth::login($user, true);
+            DB::commit();
+            return redirect()->route('welcome');
+        } catch (Exception $error) {
+            DB::rollBack();
+
+            dd( 'error', $error );
+        }
     }
 }
