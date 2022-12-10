@@ -17,6 +17,10 @@ git clone git@github.com:H4fif/laracamp.git
 - duplicate the file `.env.example` and name it to `.env`
 - replace db configurations with prefix `DB_`
 - replace google for oauth configurations with prefix `GOOGLE_CLIENT_`
+- install dependencies using this command
+```markdown
+composer install
+```
 
 ## GENERATE APP KEY
 - run this command
