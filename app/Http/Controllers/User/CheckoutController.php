@@ -8,6 +8,8 @@ use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Checkout\Store;
 use Auth;
+use Mail;
+use App\Mail\Checkout\AfterCheckout;
 
 class CheckoutController extends Controller
 {
@@ -55,6 +57,8 @@ class CheckoutController extends Controller
         $user->save();
 
         $checkout = Checkout::create($data);
+
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
 
         return redirect()->route('checkout.success');
     }
@@ -107,5 +111,10 @@ class CheckoutController extends Controller
     public function success()
     {
         return view('checkout.success');
+    }
+
+    public function invoice(Checkout $checkout)
+    {
+        return $checkout;
     }
 }
