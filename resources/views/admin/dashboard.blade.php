@@ -20,7 +20,6 @@
                                     <th>Price</th>
                                     <th>Register Data</th>
                                     <th>Paid Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
 
@@ -33,20 +32,7 @@
                                         <td>{{ $checkout->created_at->format('M d Y') }}</td>
 
                                         <td>
-                                            @if ($checkout->is_paid)
-                                                <span class="badge bg-success">Paid</span>
-                                            @else
-                                                <span class="badge bg-warning">Waiting</span>
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            @if (!$checkout->is_paid)
-                                                <form action="{{ route('admin.checkout.confirm', $checkout->id) }}" method="post">
-                                                    @csrf
-                                                    <button class="btn btn-primary btn-sm p-2">Confirm Payment</button>
-                                                </form>
-                                            @endif
+                                            <b>{{ $checkout->payment_status }}</b>
                                         </td>
                                     </tr>
                                 @empty
