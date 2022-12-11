@@ -65,6 +65,8 @@ class CheckoutController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->occupation = $data['occupation'];
+        $user->phone = $data['phone'];
+        $user->address = $data['address'];
         $user->save();
 
         $checkout = Checkout::create($data);
