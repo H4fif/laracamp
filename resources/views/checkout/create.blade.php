@@ -15,6 +15,7 @@
                     </h2>
                 </div>
             </div>
+
             <div class="row justify-content-center">
                 <div class="col-lg-9 col-12">
                     <div class="row">
@@ -30,7 +31,9 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="col-lg-1 col-12"></div>
+
                         <div class="col-lg-6 col-12">
                             <form action="{{ route('checkout.store', $camp->id) }}" class="basic-form" method="post">
                                 @csrf
@@ -43,15 +46,17 @@
                                         <p class="text-danger">{{ $errors->first('name') }}</p>
                                     @endif
                                 </div>
+
                                 <div class="mb-4">
                                     <label for="inputEmail" class="form-label">Email Address</label>
                                     <input name="email" type="text"
-                                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                        id="inputEmail" aria-describedby="emailHelp" value="{{ Auth::user()->email }}" />
+                                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="inputEmail"
+                                        aria-describedby="emailHelp" value="{{ Auth::user()->email }}" />
                                     @if ($errors->has('email'))
                                         <p class="text-danger">{{ $errors->first('email') }}</p>
                                     @endif
                                 </div>
+
                                 <div class="mb-4">
                                     <label for="inputOccupation" class="form-label">Occupation</label>
                                     <input name="occupation" type="text"
@@ -62,40 +67,31 @@
                                         <p class="text-danger">{{ $errors->first('occupation') }}</p>
                                     @endif
                                 </div>
+
                                 <div class="mb-4">
-                                    <label for="inputCardNumber" class="form-label">Card Number</label>
-                                    <input name="card_number" type="number"
-                                        class="form-control {{ $errors->has('card_number') ? 'is-invalid' : '' }}"
-                                        id="inputCardNumber" aria-describedby="cardNumberHelp"
-                                        value="{{ old('card_number') }}" />
-                                    @if ($errors->has('card_number'))
-                                        <p class="text-danger">{{ $errors->first('card_number') }}</p>
+                                    <label for="inputPhone" class="form-label">Phone</label>
+                                    <input name="phone" type="text"
+                                        class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                                        id="inputPhone" aria-describedby="phoneHelp"
+                                        value="{{ old('phone') ?: Auth::user()->phone }}" />
+                                    @if ($errors->has('phone'))
+                                        <p class="text-danger">{{ $errors->first('phone') }}</p>
                                     @endif
                                 </div>
-                                <div class="mb-5">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-12">
-                                            <label for="inputExpiration" class="form-label">Expired</label>
-                                            <input name="expired" type="month"
-                                                class="form-control {{ $errors->has('expired') ? 'is-invalid' : '' }}"
-                                                id="inputExpiration" aria-describedby="expirationHelp"
-                                                value="{{ old('expired') }}" />
-                                            @if ($errors->has('expired'))
-                                                <p class="text-danger">{{ $errors->first('expired') }}</p>
-                                            @endif
-                                        </div>
-                                        <div class="col-lg-6 col-12">
-                                            <label for="inputCVC" class="form-label">CVC</label>
-                                            <input name="cvc" type="text"
-                                                class="form-control {{ $errors->has('cvc') ? 'is-invalid' : '' }}"
-                                                id="inputCVC" aria-describedby="cvcHelp" value="{{ old('cvc') }}" />
-                                            @if ($errors->has('cvc'))
-                                                <p class="text-danger">{{ $errors->first('cvc') }}</p>
-                                            @endif
-                                        </div>
-                                    </div>
+
+                                <div class="mb-4">
+                                    <label for="inputAddress" class="form-label">Address</label>
+                                    <input name="address" type="text"
+                                        class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
+                                        id="inputAddress" aria-describedby="addressHelp"
+                                        value="{{ old('address') ?: Auth::user()->address }}" />
+                                    @if ($errors->has('address'))
+                                        <p class="text-danger">{{ $errors->first('address') }}</p>
+                                    @endif
                                 </div>
+
                                 <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
+
                                 <p class="text-center subheader mt-4">
                                     <img src="{{ asset('images/ic_secure.svg') }}" alt=""> Your payment is secure
                                     and
